@@ -1,0 +1,15 @@
+input {
+    display: block;
+    padding: 8px 15px;
+    margin: 10px;
+}
+
+button {
+    display: block;
+    padding: 8px 15px;
+    margin: 0 0 0 10px;
+}
+
+li {
+    list-style: none;
+}
