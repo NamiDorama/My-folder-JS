@@ -67,7 +67,4 @@ const date = {[Symbol.iterator]: function() {
   }
 }};
 
-for (let val of date) {
-
-  console.log(val);
-}
+for (let val of date) console.log(val);
