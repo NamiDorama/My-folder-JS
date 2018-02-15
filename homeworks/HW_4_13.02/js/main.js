@@ -53,13 +53,21 @@ const date = {[Symbol.iterator]: function() {
 
   return {
     next: () => {
-      return {
-        value: `${methods[index++]} is ${date[`get${methods[index2++]}`]()}`,
-        done: index > methods.length
+      if(index === methods.length) {
+        return {
+          done: true
+        }
+      } else {
+        return {
+          done: false,
+          value: `${methods[index++]} is ${date[`get${methods[index2++]}`]()}`
+        }
       }
     }
   }
-
 }};
 
-for (let val of date) console.log(val);
+for (let val of date) {
+
+  console.log(val);
+}
