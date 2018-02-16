@@ -49,19 +49,18 @@ const date = {[Symbol.iterator]: function() {
   const date = new Date();
   const methods = ['FullYear', 'Month', 'Date', 'Day', 'Hours', 'Minutes', 'Seconds'];
   let index = 0;
-  let index2 = 0;
 
   return {
     next: () => {
-      if(index === methods.length) {
+      if(index <= methods.length - 1) {
+        let i = methods[index++];
         return {
-          done: true
+          value: `${i} is ${date[`get${i}`]()}`,
+          done: false
         }
-      } else {
-        return {
-          done: false,
-          value: `${methods[index++]} is ${date[`get${methods[index2++]}`]()}`
-        }
+      }
+      return {
+        done: true
       }
     }
   }
