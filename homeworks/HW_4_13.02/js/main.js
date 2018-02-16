@@ -15,9 +15,9 @@ names[Symbol.iterator] = function () {
       return {
         value: this[index++],
         done: index > length
-      }
-    }
-  }
+      };
+    };
+  };
 };
 
 console.log([...names]);
@@ -36,9 +36,9 @@ obj[Symbol.iterator] = function() {
       return {
         value: this[ keys[index++] ],
         done: index > keys.length
-      }
-    }
-  }
+      };
+    };
+  };
 };
 
 console.log([...obj]);
@@ -57,13 +57,13 @@ const date = {[Symbol.iterator]: function() {
         return {
           value: `${i} is ${date[`get${i}`]()}`,
           done: false
-        }
+        };
       }
       return {
         done: true
-      }
-    }
-  }
+      };
+    };
+  };
 }};
 
-for (let val of date) console.log(val);
+for (let val of date) console.log(val)
