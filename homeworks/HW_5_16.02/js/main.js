@@ -1,15 +1,10 @@
-<<<<<<< HEAD
 // Generators, Async await, 16.02
-=======
-// Generators, async/await
->>>>>>> master
 
 // Generators
 
 // 1
 
 function* getValue(number) {
-<<<<<<< HEAD
 	let num = number;
 	while (num * number < 1000000000) {
 		yield num * number;
@@ -17,20 +12,6 @@ function* getValue(number) {
 	}
 	throw 'Value is too big!'
 
-};
-
-
-const valuer = getValue(5);
-const bigVal = getValue(5000);
-=======
-  let num = number;
-
-  while(num * number < 1000000000) {
-    yield num * number;
-    num = num * number;
-  };
-
-  throw 'Value is too big!'
 };
 
 const valuer = getValue(5);
@@ -75,9 +56,11 @@ const getUsers = async () => {
 const usersList = async () => {
   const users = await getUsers();
 
-  let obj = {};
+  let obj = [];
+  let li = '';
+  let ul = document.createElement('ul');
 
-  obj = users.map( (task) => {
+  users.forEach( task => {
 
     if(obj[task.userId]) {
       obj[task.userId].push(task);
@@ -85,12 +68,23 @@ const usersList = async () => {
       obj[task.userId] = [];
       obj[task.userId].push(task)
     }
-    console.log(obj);
-  } );
+  });
 
+  obj.forEach( user => {
+	  let completed = 0;
+	  let notCompleted = 0;
+	  let id = 0;
 
+    user.forEach( one => {
+      id = one.userId;
+      one.completed ? completed++ : notCompleted++
+    } );
+
+    li += `<li>Пользователь ${id} имеет ${completed} завершенных и ${notCompleted} незавершенных задач</li>`;
+  });
+
+  ul.insertAdjacentHTML('beforeend', li);
+  document.body.appendChild(ul);
 };
 
 usersList();
-
->>>>>>> master
