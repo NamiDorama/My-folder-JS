@@ -16,7 +16,7 @@ names[Symbol.iterator] = function () {
         value: this[index++],
         done: index > length
       };
-    };
+    }
   };
 };
 
@@ -37,7 +37,7 @@ obj[Symbol.iterator] = function() {
         value: this[ keys[index++] ],
         done: index > keys.length
       };
-    };
+    }
   };
 };
 
@@ -62,7 +62,7 @@ const date = {[Symbol.iterator]: function() {
       return {
         done: true
       };
-    };
+    }
   };
 }};
 
