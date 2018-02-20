@@ -88,3 +88,30 @@ const usersList = async () => {
 };
 
 usersList();
+
+// 3
+
+// with fetch
+
+const createUsers = async(users) => {
+  const create = await Promise.all(
+    users
+      .map( ({name, age}) =>
+        fetch('https://jsonplaceholder.typicode.com/posts', {
+          method: 'POST',
+          body: JSON.stringify({ name, age }),
+          headers: {
+            "Content-type": "application/json; charset=UTF-8"
+          }
+        })
+          .then(res => res.json())
+      )
+  )
+    .then(console.log);
+};
+
+createUsers([{name: 'Vasya', age: 25}, {name: 'Petya', age: 40}, {name: 'Yullia', age: 22}, {name: 'Lesha', age: 24}]);
+
+// with jQuery .post()
+
+`https://codepen.io/NamiDorama/pen/WMzoVK?editors=1111`;
