@@ -66,4 +66,24 @@ const date = {[Symbol.iterator]: function() {
   };
 }};
 
-for (let val of date) console.log(val)
+for (let val of date) console.log(val);
+
+// other way
+
+const date2 = {[Symbol.iterator]: function() {
+	const date = new Date();
+	const methods = ['FullYear', 'Month', 'Date', 'Day', 'Hours', 'Minutes', 'Seconds'];
+
+	return {
+		next: () => {
+		  const method = methods.shift();
+      const datePart = method && date[`get${method}`]();
+      const value = `${method} is ${datePart}`;
+      const done = !Boolean(method);
+
+      return { value, done }
+		}
+	};
+}};
+
+for (let val of date2) console.log(val);
