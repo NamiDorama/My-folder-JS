@@ -65,8 +65,7 @@ const usersList = async () => {
     if(obj[task.userId]) {
       obj[task.userId].push(task);
     } else {
-      obj[task.userId] = [];
-      obj[task.userId].push(task)
+      obj[task.userId] = [task];
     }
   });
 
@@ -78,7 +77,7 @@ const usersList = async () => {
     user.forEach( one => {
       id = one.userId;
       one.completed ? completed++ : notCompleted++
-    } );
+    });
 
     li += `<li>Пользователь ${id} имеет ${completed} завершенных и ${notCompleted} незавершенных задач</li>`;
   });
