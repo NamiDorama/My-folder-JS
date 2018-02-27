@@ -88,6 +88,34 @@ const usersList = async () => {
 
 usersList();
 
+// Best variant of task
+
+let getTasks = async () => {
+  const tasks = await fetch('https://jsonplaceholder.typicode.com/todos').then(res => res.json());
+
+  const users = [];
+  const usersStore = {};
+
+  tasks.forEach( ({ userId, completed }) => {
+
+    if(usersStore[userId]) {
+
+      const user = usersStore[userId];
+	    user.completed += completed ? 1 : 0;
+	    user.uncompleted += completed ? 0 : 1;
+
+    } else {
+	    usersStore[userId] = {
+		    userId,
+		    completed: completed ? 1 : 0,
+        uncompleted: completed ? 0 : 1
+      };
+    }
+  });
+};
+
+getTasks();
+
 // 3
 
 // with fetch
