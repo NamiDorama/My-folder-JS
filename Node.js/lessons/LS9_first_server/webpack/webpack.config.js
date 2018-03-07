@@ -1,5 +1,6 @@
 const path = require('path');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
+const ExtractTextPlugin = require('extract-text-webpack-plugin');
 
 module.exports = {
 	entry: './app.js',
@@ -20,7 +21,15 @@ module.exports = {
 						presets: ['env']
 					}
 				}
-			}
+			},
+
+			{
+				test: /\.css$/,
+				use: ExtractTextPlugin.extract({
+					fallback: "style-loader",
+					use: "css-loader"
+				})
+			},
 		]
 	},
 
@@ -30,6 +39,13 @@ module.exports = {
 			template: 'index.html'
 			// filename: 'name.html', --> имя выходящего файта
 			// favicon: 'images/favicon.ico' --> откуда брать иконку
+		}),
+
+		new ExtractTextPlugin({
+			// filename: 'style-[contenthash].css',
+			filename: (getPath) => {
+				return getPath(`style-${Date.now()}.css`);
+			}
 		})
 	],
 

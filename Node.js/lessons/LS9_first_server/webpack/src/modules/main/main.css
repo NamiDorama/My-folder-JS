@@ -1,0 +1,10 @@
+main h2 {
+    text-transform: uppercase;
+    color: #ff453a;
+}
+
+main .date {
+    margin-top: 20px;
+    text-decoration: underline;
+}
+
