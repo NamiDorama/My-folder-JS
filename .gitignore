@@ -1,4 +1,2 @@
 .idea
-Node.js/lessons/LS8/node_modules
-Node.js/homeworks/HW8/task_4/node_modules
-Node.js/lessons/LS9_first_server/webpack/node_modules
+**/node_modules
