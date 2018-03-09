@@ -1,0 +1,31 @@
+.header {
+  text-align: center;
+  background-color: #ffb52b;
+  padding: 20px; }
+
+.header a {
+  text-decoration: none;
+  color: darkblue;
+  font-size: 30px; }
+main h2, main p {
+  text-transform: uppercase;
+  color: #ff453a; }
+
+main .date {
+  margin-top: 20px;
+  text-decoration: underline; }
+
+main p {
+  line-height: 15.6px; }
+footer {
+  border-top: 1px solid #d67200;
+  position: fixed;
+  bottom: 0;
+  width: 100%; }
+
+footer p {
+  text-align: center; }
+body {
+  margin: 0;
+  background-color: #fbff8a;
+  font: 14px Arial, sans-serif; }

@@ -1,0 +1,17 @@
+@import "../../variables";
+
+main h2 {
+  text-transform: uppercase;
+  color: #ff453a;
+}
+
+main .date {
+  margin-top: 20px;
+  text-decoration: underline;
+}
+
+main p {
+  $fsz: 12px;
+  line-height: getLineHeight($fsz);
+  @extend h2;
+}
