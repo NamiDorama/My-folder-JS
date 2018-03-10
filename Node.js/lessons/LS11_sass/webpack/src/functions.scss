@@ -1,0 +1,13 @@
+// Functions
+
+// 1 a)
+
+@function getPart($num, $part) {
+  @return ($num / 100) * $part
+}
+
+// 1 b)
+
+@function getDarken($color) {
+  @return darken($color, 20%)
+}

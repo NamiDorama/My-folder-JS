@@ -1,6 +1,4 @@
+// Lesson variables
+
 $main-bg: #fbff8a;
 $main-fsize: 14px;
-
-@function getLineHeight($fsz) {
-  @return $fsz * 1.3;
-}

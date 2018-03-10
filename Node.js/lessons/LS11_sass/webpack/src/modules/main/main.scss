@@ -1,4 +1,5 @@
-@import "../../variables";
+@import "../../functions";
+@import "../../mixins";
 
 main h2 {
   text-transform: uppercase;
@@ -10,8 +11,26 @@ main .date {
   text-decoration: underline;
 }
 
-main p {
-  $fsz: 12px;
-  line-height: getLineHeight($fsz);
-  @extend h2;
+main .first-p {
+  position: relative;
+  padding: 20px;
+  width: getPart(100, 20%);
+  background-color: getDarken(#ffe0c6);
+  @include round(20px);
+  @include triangle('left');
+}
+
+@for $i from 1 through 10 {
+  .width#{$i} {
+    width: 10% * $i;
+    height: 30px;
+    background-color: darken(#ff6b46, 5% * $i);
+    margin-bottom: 2px;
+  }
+}
+
+@for $i from 1 through 20 {
+  li:nth-child(#{$i}) {
+    background-color: rgb(35 * $i, 12 * $i, 3 * $i);
+  }
 }
