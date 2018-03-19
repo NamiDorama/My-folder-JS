@@ -1,6 +1,38 @@
 const path = require('path');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const ExtractTextPlugin = require('extract-text-webpack-plugin');
+const webpack = require('webpack');
+const args = require('yargs').argv;
+
+const plugins = [
+	new HtmlWebpackPlugin({
+		title: 'Mega project',
+		template: 'index.html'
+	}),
+
+	new webpack.HotModuleReplacementPlugin()
+];
+
+let styleLoaders = [
+	{loader: 'style-loader'},
+	{loader: "css-loader"},
+	{loader: "sass-loader"}
+];
+
+if (args.env && (args.env.styles || args.env.hash)) {
+	styleLoaders = ExtractTextPlugin.extract({
+		fallback: "style-loader",
+		use: [
+			{loader: 'css-loader'},
+			{loader: 'sass-loader'}
+		]
+	});
+
+	args.env.styles ?
+		plugins.push(new ExtractTextPlugin('style.css')) :
+		plugins.push(new ExtractTextPlugin('style-[contenthash].css'));
+}
+
 
 module.exports = {
 	entry: './app.js',
@@ -25,32 +57,24 @@ module.exports = {
 
 			{
 				test: /\.s?css$/,
-				use: ExtractTextPlugin.extract({
-					fallback: "style-loader",
-					use: [
-						{loader: 'css-loader'},
-						{loader: 'sass-loader'}
-					]
-				})
-			},
+				use: styleLoaders
+			}
 		]
 	},
 
-	plugins: [
-		new HtmlWebpackPlugin({
-			title: 'Mega project', // --> имеет меньший приоритет, если указываем template
-			template: 'index.html'
-			// filename: 'name.html', --> имя выходящего файта
-			// favicon: 'images/favicon.ico' --> откуда брать иконку
-		}),
-
-		new ExtractTextPlugin('style.css')
-	],
+	plugins,
 
 	optimization: {
 		splitChunks: {
 			chunks: 'all'
 		},
+	},
+
+	devServer: {
+		contentBase: path.resolve('dist'),
+		publicPath: '/',
+		port: 9000,
+		hot: true
 	}
 
 };
