@@ -1,6 +1,10 @@
 const pic = document.getElementById('cuteImg');
 
-console.log(
-  `Width: ${pic.width}px
+if(pic) {
+  pic.onload = () => console.log(
+    `Width: ${pic.width}px
 Height: ${pic.height}px`
-);
+  );
+} else {
+  console.log("Picture doesn't exist");
+}

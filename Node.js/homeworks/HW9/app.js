@@ -1,11 +1,8 @@
 const http = require('http'),
       port = 3000,
       fs = require('fs'),
-      images = ['png', 'jpeg', 'gif', 'svg', 'jpg'],
-      regImg = new RegExp(`\\.(${images.join('|')})$`),
-      regJs = /\.js/,
-
-
+      fileFormat = ['png', 'jpeg', 'gif', 'svg', 'jpg', 'js'],
+      reg = new RegExp(`\\.(${fileFormat.join('|')})$`),
       date = new Date(),
       day = date.getDate(),
       month = date.getMonth()+1,
@@ -15,12 +12,10 @@ const http = require('http'),
       mm = month < 10 ? `0${month}` : month,
       nowDate = `${dd}.${mm}.${yyyy}`;
 
-
-
 const server = http.createServer((req, res) => {
 	res.setHeader('Content-Type', 'text/html');
 
-	if(regImg.test(req.url)) {
+	if(reg.test(req.url)) {
 		fs.readFile(req.url.replace('/', ''), (err, data) => {
 			if (err) {
 				res.statusCode = 404;
@@ -30,30 +25,19 @@ const server = http.createServer((req, res) => {
 
 			res.end(data);
 		});
+		return;
 	}
 
-  if(regJs.test(req.url)) {
-    fs.readFile(req.url.replace('/', ''), 'utf-8', (err, data) => {
-      if(err) {
-        res.statusCode = 404;
-        res.end(err.toString());
-        return;
-      }
+  fs.readFile('index.html','utf-8', (err, data) => {
+    if (err) {
+      res.statusCode = 404;
+      res.end(err.toString());
+      return;
+    }
 
-      res.end(data);
-    });
-  }
-
-	fs.readFile('index.html','utf-8', (err, data) => {
-		if (err) {
-			res.statusCode = 404;
-			res.end(err.toString());
-			return;
-		}
-
-		data = data.replace('</body>', `<p>${nowDate}</p></body>`);
-		res.end(data);
-	});
+    data = data.replace('</body>', `<p>${nowDate}</p></body>`);
+    res.end(data);
+  });
 
 });
 
