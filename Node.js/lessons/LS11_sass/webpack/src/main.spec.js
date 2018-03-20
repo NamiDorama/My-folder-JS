@@ -35,10 +35,6 @@ describe('main.js testing', () => {
 
   describe('getDay() testing', () => {
 
-    it('days should be an array to have correct return', () => {
-      expect(days).to.be.a('Array');
-    });
-
     it('Should be a string type', () => {
       const returnDay = getDay();
       expect(returnDay).to.be.a('string');
@@ -53,10 +49,6 @@ describe('main.js testing', () => {
   });
 
   describe('getAdultUsers() testing', () => {
-
-    it('users should be an array', () => {
-      expect(users).to.be.a('Array');
-    });
 
     it('users should have field age && it should be a number', () => {
       users.forEach(el => {
