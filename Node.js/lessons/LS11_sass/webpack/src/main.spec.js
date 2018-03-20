@@ -10,6 +10,8 @@ describe('main.js testing', () => {
     const origAlert = alert;
 
     beforeEach(() => {
+      const alert = sinon.stub(window, 'alert');
+
       window.alert = (text) => {
         window.alert.wasCalled = true;
         window.alert.argument = text;
