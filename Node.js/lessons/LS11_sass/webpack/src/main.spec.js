@@ -1,36 +1,30 @@
-import chai, { expect } from 'chai';
+import { expect } from 'chai';
 import sinon from 'sinon';
-import { days, users, defaultProduct, money } from './constants';
+import { users, defaultProduct, money } from './constants';
 import { showMessage, getDay, getAdultUsers, getRandomUsers, Product } from './main';
 
 
 describe('main.js testing', () => {
 
   describe('showMessage testing', () => {
-    const origAlert = alert;
 
     beforeEach(() => {
       const alert = sinon.stub(window, 'alert');
-
-      window.alert = (text) => {
-        window.alert.wasCalled = true;
-        window.alert.argument = text;
-      };
     });
 
     afterEach(() => {
-      window.alert = origAlert;
+      window.alert.restore();
     });
 
     it('Should call alert', () => {
       showMessage('test');
-      expect(alert.wasCalled).to.be.equal(true);
+      expect(alert.called).to.be.equal(true);
     });
 
     it('Should call alert with argument', () => {
       const testText = 'test';
       showMessage(testText);
-      expect(alert.argument).to.be.equal(testText);
+      expect(alert.getCall(0).args[0]).to.be.equal(testText);
     });
 
   });
@@ -85,25 +79,25 @@ describe('main.js testing', () => {
     });
 
     it('Should slice users from middle to last element if Math.random() < 0.5', () => {
-      const origMathRandom = Math.random;
-      Math.random = () => 0.2;
+      const rand = sinon.stub(Math, 'random');
+      rand.returns(0.2);
       const middleUser = Math.round(users.length / 2);
       const neededVal = users.slice(middleUser, users.length);
 
       expect(getRandomUsers(users)).to.be.eql(neededVal);
 
-      Math.random = origMathRandom;
+      Math.random.restore();
     });
 
     it('Should slice users from 0 to middle if Math.random() > 0.5', () => {
-      const origMathRandom = Math.random;
-      Math.random = () => 0.7;
+      const rand = sinon.stub(Math, 'random');
+      rand.returns(0.7);
       const middleUser = Math.round(users.length / 2);
       const neededVal = users.slice(0, middleUser);
 
       expect(getRandomUsers(users)).to.be.eql(neededVal);
 
-      Math.random = origMathRandom;
+      Math.random.restore();
     });
 
   });
@@ -138,10 +132,20 @@ describe('main.js testing', () => {
       expect(prod.getPrice()).to.be.equal(str);
     });
 
-    it('Should return value if with argument 12', () => {
+    it('Should return value with argument 12', () => {
       const testVal = 12;
       prod.setPrice(testVal);
       expect(prod.value).to.be.equal(testVal);
+    });
+
+    it('Shouldn\'t assign value with argument 8', () => {
+      const testVal = 8;
+      prod.setPrice(testVal);
+      expect(prod.value).not.to.be.equal(testVal);
+    });
+
+    it('Should return error if no argument', () => {
+      expect(prod.setPrice).to.throw();
     });
 
   });
